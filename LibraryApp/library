@@ -1,0 +1,35 @@
+CREATE TABLE Users(
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    Category TEXT NOT NULL,       
+    MaxBooks INTEGER NOT NULL,
+    Password TEXT NOT NULL
+);
+
+-- Книги
+CREATE TABLE Books(
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Title TEXT NOT NULL,
+    Author TEXT,
+    Year INTEGER,
+    Status TEXT NOT NULL
+);
+
+-- Выдачи
+CREATE TABLE Issues(
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserId INTEGER,
+    BookId INTEGER,
+    IssueDate TEXT,
+    ReturnDate TEXT,
+    FOREIGN KEY(UserId) REFERENCES Users(Id),
+    FOREIGN KEY(BookId) REFERENCES Books(Id)
+);
+
+-- Штрафы
+CREATE TABLE Penalties(
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    IssueId INTEGER,
+    Amount REAL,
+    FOREIGN KEY(IssueId) REFERENCES Issues(Id)
+);
